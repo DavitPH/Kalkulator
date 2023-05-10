@@ -2,8 +2,40 @@
 
 namespace Kalkulator
 {
-    class Program
+    public class Program
     {
+        public static double HitungHasil(double[] angka, int[] operatorInput)
+        {
+            double hasil = angka[0];
+
+            // Melakukan operasi yang dipilih oleh pengguna
+            for (int j = 1; j < angka.Length; j++)
+            {
+                switch (operatorInput[j - 1])
+                {
+                    case 1:
+                        hasil += angka[j];
+                        break;
+                    case 2:
+                        hasil -= angka[j];
+                        break;
+                    case 3:
+                        hasil *= angka[j];
+                        break;
+                    case 4:
+                        if (angka[j] == 0)
+                        {
+                            Console.WriteLine("Tidak bisa melakukan pembagian dengan nol.");
+                            return double.NaN;
+                        }
+                        hasil /= angka[j];
+                        break;
+                }
+            }
+
+            return hasil;
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Selamat datang di Program Kalkulator\n");
@@ -52,37 +84,11 @@ namespace Kalkulator
                     }
                 }
 
-                double hasil = angka[0];
-                int j = 1;
-
-                // Melakukan operasi yang dipilih oleh pengguna
-                foreach (int op in operatorInput)
+                double hasil = HitungHasil(angka, operatorInput);
+                if (!double.IsNaN(hasil))
                 {
-                    switch (op)
-                    {
-                        case 1:
-                            hasil += angka[j];
-                            break;
-                        case 2:
-                            hasil -= angka[j];
-                            break;
-                        case 3:
-                            hasil *= angka[j];
-                            break;
-                        case 4:
-                            if (angka[j] == 0)
-                            {
-                                Console.WriteLine("Tidak bisa melakukan pembagian dengan nol.");
-                                return;
-                            }
-                            hasil /= angka[j];
-                            break;
-                    }
-
-                    j++;
+                    Console.WriteLine("\nHasil: " + hasil);
                 }
-
-                Console.WriteLine("\nHasil: " + hasil);
 
                 // Menanyakan apakah pengguna ingin mengulang program atau keluar
                 Console.WriteLine("\nApakah Anda ingin mengulang program? (Y/N)");
