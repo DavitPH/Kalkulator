@@ -35,7 +35,7 @@ namespace Kalkulator
 
             return hasil;
         }
-
+        
         static void Main(string[] args)
         {
             Console.WriteLine("Selamat datang di Program Kalkulator\n");
